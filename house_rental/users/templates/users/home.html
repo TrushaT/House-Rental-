@@ -1,0 +1,106 @@
+{% extends "users/base.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>FindYourHouse</title>
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome-4.5.0/css/font-awesome.min.css' %}">                                   <!-- Templatemo style -->                <!-- Font Awesome -->
+    {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">                                      <!-- Bootstrap style --> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/hero-slider-style.css' %}">                                  <!-- Hero slider style -->
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">                                   <!-- Templatemo style -->
+
+    
+</head>
+
+    <body>
+        <section class="cd-hero">
+            <ul class="cd-hero-slider autoplay">  
+            <!-- 
+            	<ul class="cd-hero-slider autoplay"> for slider auto play 
+                <ul class="cd-hero-slider"> for disabled auto play
+            -->
+                <li class="selected">
+                    <div class="cd-full-width">
+                        <div class="tm-slide-content-div">
+                                <!-- <i class="fa fa-cogs tm-slide-icon"></i> -->
+                                <h2 class="text-uppercase">FindUrHouse</h2>
+                                <p class="m-b-mid">Your house our priority !</p>
+                                <!-- <div class="form-group">
+                                    <input name="search" type="text" class="form-control center-block tm-max-w-400" id="input1" placeholder="Type a keyword...">
+                              </div>                                
+                                <button type="submit" class="cd-btn">Search</button> -->
+                                <p class="lead">Select below the type of account you want to create</p>
+                <a href="{% url 'tenant_signup' %}" class="btn btn-tenant btn-lg" role="button">I'm a tenant</a>
+                <a href="{% url 'owner_signup' %}" class="btn btn-owner btn-lg" role="button">I'm a owner</a>
+                                
+                        </div>                        
+                    </div> <!-- .cd-full-width -->
+                </li>
+            </ul>
+        <section>
+
+                
+        <!-- load JS files -->
+        {% comment %} <script src="js/jquery-1.11.3.min.js"></script>             <!-- jQuery (https://jquery.com/download/) -->
+        <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script> <!-- Tether for Bootstrap (http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h) --> 
+        <script src="js/bootstrap.min.js"></script>                 <!-- Bootstrap js (v4-alpha.getbootstrap.com/) -->
+        <script src="js/hero-slider-script.js"></script>            <!-- Hero slider (https://codyhouse.co/gem/hero-slider/) -->
+        <script src="js/jquery.touchSwipe.min.js"></script>         <!-- http://labs.rampinteractive.co.uk/touchSwipe/demos/ -->
+        <script>      {% endcomment %}
+{% comment %}        
+            $(document).ready(function(){
+
+                /* Auto play bootstrap carousel 
+                * http://stackoverflow.com/questions/13525258/twitter-bootstrap-carousel-autoplay-on-load
+                -----------------------------------------------------------------------------------------*/                
+                $('.carousel').carousel({
+                  interval: 3000
+                })
+
+                /* Enable swiping carousel for tablets and mobile
+                 * http://lazcreative.com/blog/adding-swipe-support-to-bootstrap-carousel-3-0/
+                 ---------------------------------------------------------------------------------*/
+                if($(window).width() <= 991) {
+                    $(".carousel-inner").swipe( {
+                        //Generic swipe handler for all directions
+                        swipeLeft:function(event, direction, distance, duration, fingerCount) {
+                            $(this).parent().carousel('next'); 
+                        },
+                        swipeRight: function() {
+                            $(this).parent().carousel('prev'); 
+                        },
+                        //Default is 75px, set to 0 for demo so any distance triggers swipe
+                        threshold:0
+                    });
+                }  
+
+                /* Handle window resize */
+                $(window).resize(function(){
+                    if($(window).width() <= 991) {
+                        $(".carousel-inner").swipe( {
+                            //Generic swipe handler for all directions
+                            swipeLeft:function(event, direction, distance, duration, fingerCount) {
+                                $(this).parent().carousel('next'); 
+                            },
+                            swipeRight: function() {
+                                $(this).parent().carousel('prev'); 
+                            },
+                            //Default is 75px, set to 0 for demo so any distance triggers swipe
+                            threshold:0
+                        });
+                     }
+                });                             
+            });
+
+        </script>              {% endcomment %}
+
+</body>
+</html>
+{% endblock content %}
