@@ -6,10 +6,14 @@
   <div class="row">
     <div class="col-md-8 col-sm-10 col-12">
       <h2>Sign up as a {{ user_type }}</h2>
-      <form method="post" novalidate>
+      <form method="post" class = "form-group col-5">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
         {{ form|crispy }}
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+
+        <div class="g-recaptcha" data-sitekey="6Ldya-EUAAAAAB3e1bMuUuIxeboksW8mHkvacFM6"></div>
+
         <button type="submit" class="btn btn-success">Sign up</button>
         <div class="border-top pd-3">
         <small class="text-muted">

@@ -1,0 +1,17 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8 col-sm-10 col-xs-13">
+      <h2>Enter Your Property Details </h2>
+      <form method="POST" class = "form-group col-8">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary"> Add Property </button>
+    </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

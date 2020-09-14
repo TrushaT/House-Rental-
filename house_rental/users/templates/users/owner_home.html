@@ -1,4 +1,37 @@
 {% extends "users/base.html" %}
 {% block content %}
-<h1> Welcome Owner </h1>
+
+<a class = "btn btn-primary float-right" href = "{% url 'new_property' %}"> New Property </a>
+
+<h1> Welcome {{request.user.username}} </h1>
+<br>
+{% for property in all_properties %}
+
+<div>
+<h2><u> Property {{ forloop.counter }} </u> </h2>  
+</div>
+
+<dl class="row">
+    
+    <dt class="col-sm-3">Monthly Rent :  </dt>
+    <dd class="col-sm-9"> {{property.monthly_rent}} </dd>
+  
+    <dt class="col-sm-3">Property Size : </dt>
+    <dd class="col-sm-9">
+        {{property.property_size}}
+    </dd>
+  
+    <dt class="col-sm-3">Area : </dt>
+    <dd class="col-sm-9">{{property.area}}</dd>
+  
+    <dt class="col-sm-3 text-truncate">Address Line 1 : </dt>
+    <dd class="col-sm-9"> {{property.address_line_1}} </dd>
+  
+    <dt class="col-sm-3 text-truncate">Address Line 2 : </dt>
+    <dd class="col-sm-9"> {{property.address_line_2}} </dd>
+  
+  </dl>
+
+{% endfor %}
+
 {% endblock content %}
