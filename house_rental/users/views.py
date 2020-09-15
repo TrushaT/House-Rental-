@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import TenantSignUpForm, OwnerSignUpForm
-from .models import User, Tenant
+from .models import User, Tenant , Owner
 from django.contrib import messages
 
 
@@ -35,6 +35,7 @@ def tenant_register(request):
 
     context = dict(form=form,user_type='Tenant')
     return render(request,'users/signup_form.html',context)
+
 
 def owner_register(request):
     if request.method == "POST":
