@@ -1,4 +1,34 @@
 {% extends "users/base.html" %}
 {% block content %}
 <h1> Welcome Tenant </h1>
+
+{% for property in all_properties %}
+
+<dl class="row">
+
+    <dt class="col-sm-3">Property Owner :  </dt>
+    <dd class="col-sm-9"> {{property.property_owner}} </dd>
+
+    <dt class="col-sm-3">Monthly Rent :  </dt>
+    <dd class="col-sm-9"> {{property.monthly_rent}} </dd>
+  
+    <dt class="col-sm-3">Property Size : </dt>
+    <dd class="col-sm-9">
+        {{property.property_size}}
+    </dd>
+  
+    <dt class="col-sm-3">Area : </dt>
+    <dd class="col-sm-9">{{property.area}}</dd>
+  
+    <dt class="col-sm-3 text-truncate">Address Line 1 : </dt>
+    <dd class="col-sm-9"> {{property.address_line_1}} </dd>
+  
+    <dt class="col-sm-3 text-truncate">Address Line 2 : </dt>
+    <dd class="col-sm-9"> {{property.address_line_2}} </dd>
+  
+  </dl>
+
+{% endfor %}
+
+
 {% endblock content %}

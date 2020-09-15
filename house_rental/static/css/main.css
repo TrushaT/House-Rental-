@@ -24,6 +24,9 @@ body {
     color:black;
   }
   
+  .asteriskField {
+    display: none;
+  }
   /* .site-header .navbar-nav .nav-link.active {
     font-weight: 500;
   } */

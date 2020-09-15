@@ -7,7 +7,7 @@
   <p>Only a logged out user can view</p>
 {% else %}
 <div class="content-section">
-    <form method="POST">
+    <form method="POST" class = "form-group col-5">
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">
