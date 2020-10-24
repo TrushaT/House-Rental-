@@ -13,9 +13,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-
   <body>
-  
+
     <style>    
         .buttons-flex{
        display: -webkit-flex;
@@ -28,7 +27,7 @@
         border: 2px solid black;
       }
 
-    </style>
+  </style>
   
    {% for message in messages %}
 
@@ -38,16 +37,47 @@
                     </div>
     {% endfor %}
 
-  <br><br><br><br>
+  <br><br><br>
 
-<form id = "search_form" method="POST">
-  {% csrf_token %}
-      {% crispy form form.helper %}
-</form>
+  <details>
+    <summary> Profile Details </summary>
 
+    <br>
 
+    <br>
+      <div class="card" style="border: 2px solid black;">
+
+        <div class="card-body">
+          <h5 class="card-title"> Profile Details </h5>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-success"><i class="fa fa-user"style="font-size:20px;"></i> &nbsp {{request.user.username}} </li>
+            
+            {% if tenant.maritial_status == 'Single' %}
+      
+            <li class="list-group-item list-group-item-success"><i class="fa fa-user"style="font-size:20px;"></i> &nbsp {{tenant.maritial_status}} </li>
+
+            {% elif tenant.maritial_status == 'Married' %}
+
+            <li class="list-group-item list-group-item-success"> <i class="fa fa-users" style="font-size:20px;"> </i> &nbsp {{tenant.maritial_status}} </li>
+
+            {% endif %}
+
+            <li class="list-group-item list-group-item-success"><i class="fa fa-briefcase"style="font-size:20px;"></i> &nbsp {{tenant.Occupation}} </li>
+
+            <li class="list-group-item list-group-item-success"><i class="fa fa-phone"style="font-size:20px;"></i> &nbsp {{tenant.phone_number}} </li>
+
+            
+          </ul>
+          
+        </div>
+
+      </div>
+
+  </details>
 
 <br><br>
+
+  <h3> Your Bookmarked Properties </h3>
 
  {% for property in all_properties %}
 
@@ -56,6 +86,7 @@
         <img class="card-img-top" width="692" height="359" src="{{ property.property_image.url }}">
 
         <div class="card-body">
+          
           <h5 class="card-title"> Property {{ forloop.counter }} </h5>
           <ul class="list-group">
             <li class="list-group-item list-group-item-success"><i class="fa fa-user"style="font-size:20px;"></i> {{property.property_owner.user.username}} </li>
@@ -68,9 +99,10 @@
 
         <div class="card-footer buttons-flex">
          
-          <button type="button" class="btn btn-primary btn-border" data-toggle="modal" data-target="#detailsModal_{{property.id}}" id="right-panel-link"> More Details </button> 
+          <button type="button" class="btn btn-primary btn-border" data-toggle="modal" data-target="#notifyModal_{{property.id}}" id="right-panel-link"> More Details </button> 
            
-          <button type="button" data-toggle="modal" data-target="#notifyModal_{{property.id}}" class="btn btn-warning btn-border" > Notify Owner </button>
+               <button type="button" data-toggle="modal" data-target="#detailsModal_{{property.id}}" class="btn btn-warning btn-border" > Notify Owner </button>
+
 
           {% if property in tenant_list.bookmarked_properties.all %}
 
@@ -82,7 +114,6 @@
 
           {% endif %}
   
-           
         </div>
       </div>
     
@@ -90,8 +121,8 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"> Notify Owner of Property {{ forloop.counter }} ? </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLabel"> Notify Owner of Property{{ forloop.counter }} ? </h5>
+        <button type="button" class="close btn-border" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -102,7 +133,7 @@
 
       <div class="modal-footer">
     
-        <a type="button" class="btn btn-warning btn-border" href = "{% url 'notify_owner' property.id %}" > Notify Owner </a>
+        <a type="button" class="btn btn-warning btn-border" href = "{% url 'notify_owner' property.id %}"> Notify Owner </a>
 
         <button type="button" class="btn btn-primary btn-border" data-dismiss="modal">Close</button>
 
@@ -111,12 +142,13 @@
   </div>
 </div>
  
+
   <div class="modal fade" id="detailsModal_{{property.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"> Details of Property {{ forloop.counter }}</h5>
-        <button type="button" class="close btn-border" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -144,31 +176,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
-
-  <script>
-    
-    $('#search_form').submit(function() {
-        // DO STUFF...
-        return check(); // return false to cancel form action
-    });
-
-    function check() {
-
-      var max_rent = $("#id_Maxrent").val();
-
-      var location = $("#id_location").val();
-
-      var size = $("#id_size").val();
-
-      if(max_rent == '' && location == '' && size == ''){
-        alert('All Fields are Empty !');
-        return false;
-      }
-
-        return  true;
-    }
-
-
-  </script>
 
 {% endblock content %}

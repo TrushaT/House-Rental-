@@ -26,7 +26,7 @@ SECRET_KEY = '#1p82oo1yoj#wqq%w95)l+o$9z!6#%z4myd6208e^y(7o(cnu&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
     'crispy_forms',
     'users',
 ]
@@ -125,15 +126,25 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-AUTH_USER_MODEL = "users.User" 
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+AUTH_USER_MODEL = "users.User" 
 
 LOGIN_URL = 'login'
 
-
 LOGIN_REDIRECT_URL = 'home'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'findurhouse123@gmail.com'
+EMAIL_HOST_PASSWORD = 'findurhouse@1234'
 
 # Messages built-in framework
 
@@ -145,7 +156,15 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-
 # Third party apps configuration
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# CUSTOM EMAIL SETTINGS
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "housingrentalsystem@gmail.com"
+EMAIL_HOST_PASSWORD = "aeiou@1234"

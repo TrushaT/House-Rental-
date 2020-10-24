@@ -3,13 +3,20 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
+<style>
+    .btn-border{
+        border: 2px solid black;
+    }
+</style>
+
   <div class="row">
     <div class="col-md-8 col-sm-10 col-xs-13">
       <h2>Enter Your Property Details </h2>
-      <form method="POST" class = "form-group col-8">
+      <form method="POST" enctype="multipart/form-data" class = "form-group col-8">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-primary"> Add Property </button>
+        <button type="submit" class="btn btn-primary btn-border"> Add Property </button>
     </div>
       </form>
     </div>

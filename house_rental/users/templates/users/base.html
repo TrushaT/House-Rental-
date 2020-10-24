@@ -5,7 +5,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}FindUrHouse{% endblock %}</title>
+
+    <title>{% block title %} FindUrHouse {% endblock %}</title>
 
     <link rel="icon" href="{% static 'img/favicon.png' %}">
     <link href="https://fonts.googleapis.com/css?family=Clicker+Script" rel="stylesheet">
@@ -13,13 +14,14 @@
     {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'vendor/fontello-2f186091/css/fontello.css' %}"> {% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     
             <!-- ***** Header Area Start ***** -->
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <nav class="navbar navbar-expand-md bg-steel fixed-top">
         <div class="container">
           <h1 class="logo">
           <a href="{% url 'home' %}">FindUrHouse</a>
@@ -33,7 +35,17 @@
             <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                     {% if user.is_authenticated %}
-                     <a class="nav-item nav-link" href="#">Profile</a>
+
+                     <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+
+                    {% if user.is_tenant %}
+
+                     <a class="nav-item nav-link" href="{% url 'tenantprofile' %}">Profile</a>
+
+                     <a class="nav-item nav-link" href="{% url 'tenantupdate' %}">Edit Profile</a>
+
+                     {% endif %}
+
                       <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                     {% else %}
                       <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>

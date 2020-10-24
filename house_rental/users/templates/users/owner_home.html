@@ -1,37 +1,135 @@
 {% extends "users/base.html" %}
+{% load static %}
 {% block content %}
 
-<a class = "btn btn-primary float-right" href = "{% url 'new_property' %}"> New Property </a>
+<html lang="en">
 
-<h1> Welcome {{request.user.username}} </h1>
-<br>
-{% for property in all_properties %}
+<head>
 
-<div>
-<h2><u> Property {{ forloop.counter }} </u> </h2>  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+  
+    <style>    
+        .buttons-flex{
+       display: -webkit-flex;
+       display: flex;
+       -webkit-justify-content: space-between;
+       justify-content: space-between;
+      }
+
+        .btn-border{
+        border: 2px solid black;
+      }
+    </style>
+
+   {% for message in messages %}
+
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        {{ message }}
+                    </div>
+    {% endfor %}
+
+  <div class="header">
+    <h1>Your properties </h1>
+  </div>
+
+  <div class="text-right">
+    <a class="btn btn-primary btn-border" href="{% url 'new_property' %}"> New Property</a>
+  </div>
+
+  <br><br>
+
+ {% for property in all_properties %}
+
+    {% if forloop.first %} <div class="card-deck"> {% endif %}
+      <div class="card" style="border: 2px solid black;">
+        <img class="card-img-top" width="692" height="359" src="{{ property.property_image.url }}">
+
+        <div class="card-body">
+          <h5 class="card-title"> Property {{ forloop.counter }} </h5>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-success"><i class="fa fa-user"style="font-size:20px;"></i> {{property.property_owner.user.username}} </li>
+            <li class="list-group-item list-group-item-success"><i class="fa fa-map-marker"style="font-size:20px;"></i> {{property.area}} </li>
+            <li class="list-group-item list-group-item-success"><i class="fa fa-home"style="font-size:20px;"></i> {{property.property_size}} </li>
+            <li class="list-group-item list-group-item-success"><i class="fa fa-inr"style="font-size:20px;"></i> {{property.monthly_rent}} </li>
+          </ul>
+          
+        </div>
+
+        <div class="card-footer buttons-flex">
+         
+          <button type="button" class="btn btn-primary btn-border" data-toggle="modal" data-target="#detailsModal_{{property.id}}" id="right-panel-link"> More Details </button> 
+
+          <a type="button" class="btn btn-success btn-border" href = "{% url 'update_property' property.id %}"> Update </a>
+           
+          <button type="button" class="btn btn-danger btn-border" data-toggle="modal" data-target="#deletemodal_{{property.id}}" id="right-panel-link"> Delete </button>
+           
+        </div>
+      </div>
+    
+  <div class="modal fade" id="detailsModal_{{property.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Details of Property {{ forloop.counter }}</h5>
+        <button type="button" class="close btn-border" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+      <p> Address Line 1 : {{property.address_line_1}}</p>
+
+      <p> Address Line 2 : {{property.address_line_2}} </p>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-border" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<dl class="row">
-    
-    <dt class="col-sm-3">Monthly Rent :  </dt>
-    <dd class="col-sm-9"> {{property.monthly_rent}} </dd>
-  
-    <dt class="col-sm-3">Property Size : </dt>
-    <dd class="col-sm-9">
-        {{property.property_size}}
-    </dd>
-  
-    <dt class="col-sm-3">Area : </dt>
-    <dd class="col-sm-9">{{property.area}}</dd>
-  
-    <dt class="col-sm-3 text-truncate">Address Line 1 : </dt>
-    <dd class="col-sm-9"> {{property.address_line_1}} </dd>
-  
-    <dt class="col-sm-3 text-truncate">Address Line 2 : </dt>
-    <dd class="col-sm-9"> {{property.address_line_2}} </dd>
-  
-  </dl>
+  <div class="modal fade" id="deletemodal_{{property.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Delete Property {{ forloop.counter }} ? </h5>
+        <button type="button" class="close btn-border" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
+      <div class="modal-body">
+        <p> This action cannot be undone </p>
+      </div>
+
+      <div class="modal-footer">
+    
+        <a type="button" class="btn btn-danger btn-border" href = "{% url 'delete_property' property.id %}">Delete </a>
+
+        <button type="button" class="btn btn-primary btn-border" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+ 
+    {% if forloop.counter|divisibleby:"2" %}</div> <br><br><br><br> <div class="card-deck">{% endif %}
+
+    {% if forloop.last %} </div> {% endif %}
 {% endfor %}
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
 
 {% endblock content %}

@@ -27,6 +27,7 @@ body {
   .asteriskField {
     display: none;
   }
-  /* .site-header .navbar-nav .nav-link.active {
+   .site-header .navbar-nav .nav-link.active {
     font-weight: 500;
-  } */
+    color: black !important;
+  } 
