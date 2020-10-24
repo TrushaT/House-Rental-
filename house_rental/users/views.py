@@ -120,6 +120,7 @@ def tenant_register(request):
     context = dict(form=form,user_type='Tenant')
     return render(request,'users/signup_form.html',context)
 
+
 def owner_register(request):
 
     if request.method == "POST":
